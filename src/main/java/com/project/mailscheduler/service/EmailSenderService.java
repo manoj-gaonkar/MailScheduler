@@ -15,6 +15,7 @@ public class EmailSenderService {
 
     public void sendScheduledMail(List<String> toAddresses, List<String> ccs, String subject, String body){
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("manojgaonkar7648@gmail.com");
         message.setTo(toAddresses.toArray(new String[0]));
         message.setCc(ccs.toArray(new String[0]));
         message.setSubject(subject);
@@ -22,5 +23,6 @@ public class EmailSenderService {
 
         System.out.println(message);
         mailSender.send(message);
+        System.out.println("mail sent");
     }
 }
