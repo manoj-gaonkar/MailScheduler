@@ -31,7 +31,9 @@ public class ScheduledMail {
     @Column(name = "cc")
     private List<String> cc;
 
-    @Column(name = "body")
+    @Lob
+    @Basic(fetch = FetchType.LAZY)
+    @Column(name = "body",columnDefinition = "TEXT")
     private String body;
 
     @Column(name = "template")

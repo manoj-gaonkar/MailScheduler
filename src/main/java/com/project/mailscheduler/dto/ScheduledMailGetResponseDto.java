@@ -24,6 +24,8 @@ public class ScheduledMailGetResponseDto {
     private Date updatedAt;
     private String createdBy;
     private String username;
+    private Boolean isSent;
+    private Boolean isActive;
 
     public static ScheduledMailGetResponseDto fromEntity(ScheduledMail scheduledMail){
         ScheduledMailGetResponseDto dto = new ScheduledMailGetResponseDto();
@@ -38,6 +40,8 @@ public class ScheduledMailGetResponseDto {
         dto.setCreatedBy(scheduledMail.getCreatedBy());
 //        dto.setUsers(scheduledMail.getUsers());
         dto.setCreatedAt(scheduledMail.getCreatedAt());
+        dto.setIsSent(scheduledMail.getIsSent());
+        dto.setIsActive(scheduledMail.getIsActive());
 
         return dto;
     }

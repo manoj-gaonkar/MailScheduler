@@ -7,6 +7,7 @@ import com.project.mailscheduler.service.ScheduledMailServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -21,16 +22,20 @@ public class MailScheduler {
     private EmailSenderService emailSenderService;
 
     @Scheduled(cron = "1 * * * * ?")
+    @Transactional
     public void executeScheduledMails(){
-        System.out.println(LocalDateTime.now()+"working fine bud");
         List<ScheduledMail> scheduledMails = scheduledMailRepository.findByScheduleTimeBefore(LocalDateTime.now());
-        System.out.println(scheduledMails.stream().count());
 
         for(ScheduledMail scheduledMail:scheduledMails){
-            try{
-                emailSenderService.sendScheduledMail(scheduledMail.getToAddress(),scheduledMail.getCc(), scheduledMail.getSubject(), scheduledMail.getBody());
-            }catch (Exception ex){
-                System.out.println("Failed to send email: "+ex.getMessage());
+            //checking if the mail is sent already and if it is active
+            System.out.println("i am outside if");
+            if(!scheduledMail.getIsSent() && scheduledMail.getIsActive()) {
+                System.out.println("i am inside if");
+                try {
+                    emailSenderService.sendScheduledMail(scheduledMail.getToAddress(), scheduledMail.getCc(), scheduledMail.getSubject(), scheduledMail.getBody());
+                } catch (Exception ex) {
+                    System.out.println("Failed to send email: " + ex.getMessage());
+                }
             }
         }
 

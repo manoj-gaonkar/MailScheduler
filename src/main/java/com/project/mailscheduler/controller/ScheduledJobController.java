@@ -37,7 +37,7 @@ public class ScheduledJobController {
     //create a new schedule controller
     //create new service, create a request dto, response dto already in place
     // write a basic exception if error in creation
-    @PostMapping("/newschedule")
+    @PostMapping(value = "/newschedule", consumes = {"application/json","text/html"})
     public ResponseEntity<ScheduledMailGetResponseDto> createSchedule(@RequestBody ScheduledMailCreateRequestDto newscheduledmail){
 
         return ResponseEntity.ok(scheduledMailService.createSchedule(newscheduledmail));
@@ -47,7 +47,7 @@ public class ScheduledJobController {
     public ResponseEntity<String> deleteSchedule(@PathVariable(name="id") Long scheduleId){
         return ResponseEntity.status(HttpStatus.OK).body(scheduledMailService.deleteScheduledMail(scheduleId));
     }
-    @PutMapping("/updateschedule/{id}")
+    @PutMapping(value = "/updateschedule/{id}",consumes = {"application/json"})
     public ResponseEntity<ScheduledMailGetResponseDto> updateSchedule(@RequestBody ScheduledMailUpdateRequestDto updateScheduledMail,
                                                                       @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(scheduledMailService.updateScheduledMail(id, updateScheduledMail));

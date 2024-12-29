@@ -59,6 +59,10 @@ public class ScheduledMailServiceImpl implements ScheduledMailService{
 
             newmail.setUser(foundUser);
             newmail.setCreatedBy(foundUser.getUsername());
+            //setting the mail to active
+            newmail.setIsActive(true);
+            //setting the mail to not sent
+            newmail.setIsSent(false);
             scheduledMailRepository.save(newmail);
 
             return ScheduledMailGetResponseDto.fromEntity(newmail);
@@ -100,6 +104,9 @@ public class ScheduledMailServiceImpl implements ScheduledMailService{
         }
         if(updatedschedule.getScheduleTime() != null){
             existingScheduleMail.setScheduleTime(updatedschedule.getScheduleTime());
+        }
+        if(updatedschedule.getIsActive() != null){
+            existingScheduleMail.setIsActive(updatedschedule.getIsActive());
         }
 
 

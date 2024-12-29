@@ -15,4 +15,5 @@ public class ScheduledMailUpdateRequestDto {
     private String body;
     private String template;
     private Date scheduleTime;
+    private Boolean isActive;
 }
