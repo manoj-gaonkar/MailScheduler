@@ -2,13 +2,16 @@ package com.project.mailscheduler.dto;
 
 import com.project.mailscheduler.model.ScheduledMail;
 import com.project.mailscheduler.model.User;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
+//this annotation is used to hide this schema/dto from swagger ui
+@Hidden
 @Getter
 @Setter
 public class ScheduledMailGetResponseDto {

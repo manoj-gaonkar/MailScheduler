@@ -21,7 +21,7 @@ public class MailScheduler {
     @Autowired
     private EmailSenderService emailSenderService;
 
-    @Scheduled(cron = "1 * * * * ?")
+//    @Scheduled(cron = "1 * * * * ?")
     @Transactional
     public void executeScheduledMails(){
         List<ScheduledMail> scheduledMails = scheduledMailRepository.findByScheduleTimeBefore(LocalDateTime.now());

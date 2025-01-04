@@ -1,34 +1,43 @@
 package com.project.mailscheduler.dto;
 
 import com.project.mailscheduler.model.ScheduledMail;
-import com.project.mailscheduler.model.User;
-import com.project.mailscheduler.repository.ScheduledMailRepository;
-import com.project.mailscheduler.repository.UserRepository;
-import lombok.Data;
+import io.swagger.v3.oas.annotations.Hidden;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Future;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
+//this annotation is used to hide this schema/dto from swagger ui
+@Schema(name = "Mail create request")
 public class ScheduledMailCreateRequestDto {
 
 
+    @NotEmpty(message = "subject should not be empty")
     private String subject;
-    private List<String> toAddress;
-    private List<String> cc;
+    @NotEmpty(message = "to address should not be empty")
+    @NotEmpty(message = "toaddress must not be empty")
+    private List<@Email(message = "Email address not valid")String> toAddress;
+    private List<@Email(message = "Email address not valid")String> cc;
+    @NotEmpty(message = "body should not be empty")
     private String body;
+    @NotEmpty(message = "template name should not be empty")
     private String template;
+    @NotNull(message = "Schedule time must not be empty")
+    @Future
     private Date ScheduleTime;
 //    private Date createdAt;
 //    private Date updatedAt;
+    @Schema(hidden = true)
     private String createdBy;
+    @NotEmpty(message = "Username should not be empty")
     private String user;
 
     public static ScheduledMail toEntity(ScheduledMailCreateRequestDto requestDto){
