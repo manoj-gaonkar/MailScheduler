@@ -6,7 +6,7 @@ public class ScheduleMailNotFoundException extends RuntimeException{
     private final Long id;
     private final String entityName;
     public ScheduleMailNotFoundException(Long id, String entityName){
-        super(String.format("%s with id %id not found",entityName,id));
+        super(String.format("%s with id %d not found",entityName,id));
         this.entityName = entityName;
         this.id = id;
     }

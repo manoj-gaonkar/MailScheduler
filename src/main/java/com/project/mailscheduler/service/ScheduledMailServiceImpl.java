@@ -28,13 +28,10 @@ public class ScheduledMailServiceImpl implements ScheduledMailService{
 
     @Override
     public ScheduledMailGetResponseDto getScheduledMailById(Long id) {
-        Optional<ScheduledMail> mail = scheduledMailRepository.findById(id);
+        ScheduledMail mail = scheduledMailRepository.findById(id)
+                .orElseThrow(() -> new ScheduleMailNotFoundException(id, "Scheduled mail"));
 
-        if(mail.isPresent()){
-            return ScheduledMailGetResponseDto.fromEntity(mail.get());
-        } else {
-            throw new ScheduleMailNotFoundException(id,"Scheduled Mail");
-        }
+        return ScheduledMailGetResponseDto.fromEntity(mail);
 
     }
 
