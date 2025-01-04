@@ -60,7 +60,7 @@ public class ScheduledJobController {
 
     @Operation(summary = "update a schedule")
     @PutMapping(value = "/updateschedule/{id}",consumes = {"application/json"})
-    public ResponseEntity<ScheduledMailGetResponseDto> updateSchedule(@RequestBody ScheduledMailUpdateRequestDto updateScheduledMail,
+    public ResponseEntity<ScheduledMailGetResponseDto> updateSchedule(@Valid @RequestBody ScheduledMailUpdateRequestDto updateScheduledMail,
                                                                       @PathVariable Long id){
         return ResponseEntity.status(HttpStatus.OK).body(scheduledMailService.updateScheduledMail(id, updateScheduledMail));
     }
